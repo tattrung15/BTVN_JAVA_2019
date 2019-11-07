@@ -26,7 +26,14 @@ public class RunMain {
         knight.setName(ten);
         knight.setHP(mau);
         knight.setMP(nangluong);
-        knight.Heal();
-        knight.thongso();
+        int i = 1;
+        while (true) {
+            System.out.println("Hồi máu lần: " + (i++));
+            knight.Heal();
+            knight.thongso();
+            if (knight.getMP() < 50) {
+                break;
+            }
+        }
     }
 }
