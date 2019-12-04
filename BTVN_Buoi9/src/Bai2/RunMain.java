@@ -15,8 +15,8 @@ public class RunMain {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập n: ");
-        long n = scanner.nextLong();
-        long soTien = 0;
+        int n = scanner.nextInt();
+        int soTien = 0;
         if (n <= 0) {
             System.out.println("Số điện không âm");
             System.exit(0);
@@ -26,7 +26,7 @@ public class RunMain {
         } else if (n <= 100) {
             soTien = 50*4000 + (n - 50)*3000;
         } else {
-            long s = 0, soTienGiam = 0;
+            int s = 0, soTienGiam = 0;
             for (int i = 1; i <= n - 100; i++) {
                 s += 10;
                 long hieu = 3000 - s;
