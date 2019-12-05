@@ -11,7 +11,7 @@ package Bai1;
  */
 public class RunMain {
     public static void main(String[] args) {
-        HienThiHam(4, 2, 8);
+        HienThiHam(4, 2, 7);
     }
     
     static int TinhTong(int a, int b, int c){
@@ -19,7 +19,7 @@ public class RunMain {
     }
     
     static double TinhTheoCongThuc(int a, int b, int c){
-        return ((a / b)-c)/2;
+        return (( (double) a / b)-c)/2;
     }
     
     static String ChuyenThanhString(int a, int b, int c){
