@@ -93,4 +93,62 @@ public class DataController {
         Reader reader = new Reader(datas[0], datas[1], datas[2], datas[3]);
         return reader;
     }
+
+    public ArrayList<Book> ReadBookFromFile(String fileName){
+        OpenFileToRead(fileName);
+        ArrayList<Book> books = new ArrayList<>();
+        while (scanner.hasNext()){
+            String data = scanner.nextLine();
+            Book book = createBookFromData(data);
+            books.add(book);
+        }
+        CloseFileAfterRead();
+        return books;
+    }
+
+    private Book createBookFromData(String data) {
+        String[] datas = data.split("\\|");
+        Book book = new Book(datas[0], datas[1], datas[2], datas[3],
+                Integer.parseInt(datas[4]), Integer.parseInt(datas[5]));
+        return book;
+    }
+
+    public ArrayList<BookReaderManagement> ReadBRMFromFile(String fileName){
+        ArrayList<Book> books = ReadBookFromFile(fileName);
+        ArrayList<Reader> readers = ReadReaderFromFile(fileName);
+        OpenFileToRead(fileName);
+        ArrayList<BookReaderManagement> brms = new ArrayList<>();
+        while (scanner.hasNext()){
+            String data = scanner.nextLine();
+            BookReaderManagement bookReaderManagement = createBRMFromData(data, books, readers);
+            brms.add(bookReaderManagement);
+        }
+        CloseFileAfterRead();
+        return brms;
+    }
+
+    private BookReaderManagement createBRMFromData(String data, ArrayList<Book> books, ArrayList<Reader> readers) {
+        String[] datas = data.split("\\|");
+        BookReaderManagement brm = new BookReaderManagement(getBook(books, datas[0]), getReader(readers, datas[1]),
+                Integer.parseInt(datas[2]), datas[3], Integer.parseInt(datas[4]));
+        return null;
+    }
+
+    private Reader getReader(ArrayList<Reader> readers, String readerID) {
+        for (int i = 0; i < readers.size(); i++) {
+            if (readers.get(i).getReaderID().equals(readerID)){
+                return readers.get(i);
+            }
+        }
+        return null;
+    }
+
+    private Book getBook(ArrayList<Book> books, String bookID) {
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getBookID().equals(bookID)){
+                return books.get(i);
+            }
+        }
+        return null;
+    }
 }
