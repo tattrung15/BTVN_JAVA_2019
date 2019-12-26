@@ -1,5 +1,9 @@
 package controller;
 
+import model.Book;
+import model.BookReaderManagement;
+import model.Reader;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -48,5 +52,26 @@ public class DataController {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void WriteBookToFile(String fileName, Book book){
+        OpenFileToWrite(fileName);
+        printWriter.println(book.getBookID() + "|" + book.getBookName() + "|" + book.getAuthor() + "|" +
+                book.getSpecialization() + "|" + book.getPublishYear() + "|" + book.getQuantity());
+        CloseFileAfterWrite();
+    }
+
+    public void WtriteReaderToFile(String fileName, Reader reader){
+        OpenFileToWrite(fileName);
+        printWriter.println(reader.getReaderID() + "|" + reader.getFullName() + "|" + reader.getAddress() + "|" +
+                reader.getPhoneNumber());
+        CloseFileAfterWrite();
+    }
+
+    public void WriteBRMtoFile(String fileName, BookReaderManagement brm){
+        OpenFileToWrite(fileName);
+        printWriter.println(brm.getReader().getReaderID() + "|" + brm.getBook().getBookID() + "|" +
+                brm.getNumOfBorrow() + "|" + brm.getState() + "|" + brm.getTotalBorrow());
+        CloseFileAfterWrite();
     }
 }
