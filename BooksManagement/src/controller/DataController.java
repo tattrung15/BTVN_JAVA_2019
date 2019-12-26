@@ -6,6 +6,7 @@ import model.Reader;
 
 import java.io.*;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataController {
@@ -73,5 +74,23 @@ public class DataController {
         printWriter.println(brm.getReader().getReaderID() + "|" + brm.getBook().getBookID() + "|" +
                 brm.getNumOfBorrow() + "|" + brm.getState() + "|" + brm.getTotalBorrow());
         CloseFileAfterWrite();
+    }
+
+    public ArrayList<Reader> ReadReaderFromFile(String fileName){
+        OpenFileToRead(fileName);
+        ArrayList<Reader> readers = new ArrayList<>();
+        while (scanner.hasNext()){
+            String data = scanner.nextLine();
+            Reader reader = createReaderFromData(data);
+            readers.add(reader);
+        }
+        CloseFileAfterRead();
+        return readers;
+    }
+
+    private Reader createReaderFromData(String data) {
+        String[] datas = data.split("\\|");
+        Reader reader = new Reader(datas[0], datas[1], datas[2], datas[3]);
+        return reader;
     }
 }
