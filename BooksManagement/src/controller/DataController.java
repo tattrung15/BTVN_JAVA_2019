@@ -134,6 +134,32 @@ public class DataController {
         return null;
     }
 
+    public void UpdateBookFile(ArrayList<Book> books, String fileName){
+        File file = new File(fileName);
+        if (file.exists()){
+            file.delete();
+        }
+        OpenFileToWrite(fileName);
+        for (Book book : books) {
+            printWriter.println(book.getBookID() + "|" + book.getBookName() + "|" + book.getAuthor() + "|" +
+                    book.getSpecialization() + "|" + book.getPublishYear() + "|" + book.getQuantity());
+        }
+        CloseFileAfterWrite();
+    }
+
+    public void UpdateReaderFile(ArrayList<Reader> readers, String fileName){
+        File file = new File(fileName);
+        if (file.exists()){
+            file.delete();
+        }
+        OpenFileToWrite(fileName);
+        for (Reader reader : readers) {
+            printWriter.println(reader.getReaderID() + "|" + reader.getFullName() + "|" + reader.getAddress() + "|" +
+                    reader.getPhoneNumber());
+        }
+        CloseFileAfterWrite();
+    }
+
     private Reader getReader(ArrayList<Reader> readers, String readerID) {
         for (int i = 0; i < readers.size(); i++) {
             if (readers.get(i).getReaderID().equals(readerID)){
