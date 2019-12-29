@@ -13,6 +13,8 @@ public class View {
         String readerFileName = "READER.DAT";
         String brmFileName = "BRM.DAT";
         DataController dataController = new DataController();
+        ArrayList<Book> books;
+        ArrayList<Reader> readers;
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -32,7 +34,7 @@ public class View {
                 case 0:
                     break;
                 case 1:
-                    ArrayList<Book> booksExist = dataController.ReadBookFromFile(bookFileName);
+                    books = dataController.ReadBookFromFile(bookFileName);
                     String bookID, bookName, author, specialization;
                     int publishYear, quantity;
                     scanner.nextLine();
@@ -41,7 +43,7 @@ public class View {
                         System.out.println("Nhập mã sách: ");
                         bookID = scanner.nextLine();
 
-                        checkExistsBook = GetIndexBook(booksExist, bookID);
+                        checkExistsBook = GetIndexBook(books, bookID);
                         if (checkExistsBook != -1){
                             System.out.println("Mã sách đã tồn tại");
                         } else {
@@ -77,7 +79,7 @@ public class View {
                     break;
                 case 3:
                     scanner.nextLine();
-                    ArrayList<Book> books = dataController.ReadBookFromFile(bookFileName);
+                    books = dataController.ReadBookFromFile(bookFileName);
                     String bookIDEdit;
 
                     int indexEditBook;
@@ -148,7 +150,7 @@ public class View {
                     dataController.UpdateBookFile(books, bookFileName);
                     break;
                 case 4:
-                    ArrayList<Reader> readersExist = dataController.ReadReaderFromFile(readerFileName);
+                    readers = dataController.ReadReaderFromFile(readerFileName);
                     scanner.nextLine();
                     String readerID, fullName, address, phoneNumber;
                     int checkExistsReader;
@@ -156,15 +158,13 @@ public class View {
                         System.out.println("Nhập mã người đọc: ");
                         readerID = scanner.nextLine();
 
-                        checkExistsReader = GetIndexReader(readersExist, readerID);
+                        checkExistsReader = GetIndexReader(readers, readerID);
                         if (checkExistsReader != -1){
                             System.out.println("Mã người đọc đã tồn tại");
                         } else {
                             break;
                         }
                     }while (true);
-                    System.out.println("Nhập mã người đọc: ");
-                    readerID = scanner.nextLine();
                     System.out.println("Nhập học tên người đọc: ");
                     fullName = scanner.nextLine();
                     System.out.println("Nhập địa chỉ người đọc: ");
@@ -179,7 +179,7 @@ public class View {
                     break;
                 case 6:
                     scanner.nextLine();
-                    ArrayList<Reader> readers = dataController.ReadReaderFromFile(readerFileName);
+                    readers = dataController.ReadReaderFromFile(readerFileName);
                     String readerIDEdit;
 
                     int indexEditReader;
