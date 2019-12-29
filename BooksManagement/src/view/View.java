@@ -32,11 +32,22 @@ public class View {
                 case 0:
                     break;
                 case 1:
+                    ArrayList<Book> booksExist = dataController.ReadBookFromFile(bookFileName);
                     String bookID, bookName, author, specialization;
                     int publishYear, quantity;
                     scanner.nextLine();
-                    System.out.println("Nhập mã sách: ");
-                    bookID = scanner.nextLine();
+                    int checkExistsBook;
+                    do {
+                        System.out.println("Nhập mã sách: ");
+                        bookID = scanner.nextLine();
+
+                        checkExistsBook = GetIndexBook(booksExist, bookID);
+                        if (checkExistsBook != -1){
+                            System.out.println("Mã sách đã tồn tại");
+                        } else {
+                            break;
+                        }
+                    }while (true);
                     System.out.println("Nhập tên sách: ");
                     bookName = scanner.nextLine();
                     System.out.println("Nhập tác giả: ");
@@ -137,8 +148,21 @@ public class View {
                     dataController.UpdateBookFile(books, bookFileName);
                     break;
                 case 4:
+                    ArrayList<Reader> readersExist = dataController.ReadReaderFromFile(readerFileName);
                     scanner.nextLine();
                     String readerID, fullName, address, phoneNumber;
+                    int checkExistsReader;
+                    do {
+                        System.out.println("Nhập mã người đọc: ");
+                        readerID = scanner.nextLine();
+
+                        checkExistsReader = GetIndexReader(readersExist, readerID);
+                        if (checkExistsReader != -1){
+                            System.out.println("Mã người đọc đã tồn tại");
+                        } else {
+                            break;
+                        }
+                    }while (true);
                     System.out.println("Nhập mã người đọc: ");
                     readerID = scanner.nextLine();
                     System.out.println("Nhập học tên người đọc: ");
@@ -205,18 +229,18 @@ public class View {
         }while (choice != 0);
     }
 
-    private static int GetIndexBook(ArrayList<Book> books, String bookIDEdit) {
+    private static int GetIndexBook(ArrayList<Book> books, String bookID) {
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getBookID().equals(bookIDEdit)){
+            if (books.get(i).getBookID().equalsIgnoreCase(bookID)){
                 return i;
             }
         }
         return -1;
     }
 
-    private static int GetIndexReader(ArrayList<Reader> readers, String readerIDEdit) {
+    private static int GetIndexReader(ArrayList<Reader> readers, String readerID) {
         for (int i = 0; i < readers.size(); i++) {
-            if (readers.get(i).getReaderID().equals(readerIDEdit)){
+            if (readers.get(i).getReaderID().equalsIgnoreCase(readerID)){
                 return i;
             }
         }
