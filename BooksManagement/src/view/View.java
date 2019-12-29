@@ -28,6 +28,7 @@ public class View {
             System.out.println("6. Edit reader");
             System.out.println("7. Delete book");
             System.out.println("8. Delete reader");
+            System.out.println("9. Create management information borrow");
             System.out.println("0. Exit");
 
             System.out.println("Your choice: ");
@@ -266,6 +267,9 @@ public class View {
                         }
                     }while (true);
                     dataController.UpdateReaderFile(readers, readerFileName);
+                    break;
+                case 9:
+                    //code here
                     break;
             }
 
