@@ -114,8 +114,8 @@ public class DataController {
     }
 
     public ArrayList<BookReaderManagement> ReadBRMFromFile(String fileName){
-        ArrayList<Book> books = ReadBookFromFile(fileName);
-        ArrayList<Reader> readers = ReadReaderFromFile(fileName);
+        ArrayList<Book> books = ReadBookFromFile("BOOK.DAT");
+        ArrayList<Reader> readers = ReadReaderFromFile("READER.DAT");
         OpenFileToRead(fileName);
         ArrayList<BookReaderManagement> brms = new ArrayList<>();
         while (scanner.hasNext()){

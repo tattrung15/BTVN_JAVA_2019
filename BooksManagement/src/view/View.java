@@ -2,6 +2,7 @@ package view;
 
 import controller.DataController;
 import model.Book;
+import model.BookReaderManagement;
 import model.Reader;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class View {
             System.out.println("4. Add reader");
             System.out.println("5. Show all readers");
             System.out.println("6. Edit reader");
+            System.out.println("7. Delete book");
+            System.out.println("8. Delete reader");
             System.out.println("0. Exit");
 
             System.out.println("Your choice: ");
@@ -222,6 +225,46 @@ public class View {
                             readers.get(indexEditReader).setPhoneNumber(phoneNumberEdit);
                             break;
                     }
+                    dataController.UpdateReaderFile(readers, readerFileName);
+                    break;
+                case 7:
+                    books = dataController.ReadBookFromFile(bookFileName);
+                    scanner.nextLine();
+                    String bookIDDelete;
+                    int indexBookDelete;
+                    do {
+                        ShowAllBooks(dataController, bookFileName);
+                        System.out.println("Nhập mã sách cần xóa: ");
+                        bookIDDelete = scanner.nextLine();
+
+                        indexBookDelete = GetIndexBook(books, bookIDDelete);
+                        if (indexBookDelete == -1){
+                            System.out.println("Mã sách không tồn tại");
+                        } else {
+                            books.remove(indexBookDelete);
+                            break;
+                        }
+                    }while (true);
+                    dataController.UpdateBookFile(books, bookFileName);
+                    break;
+                case 8:
+                    readers = dataController.ReadReaderFromFile(readerFileName);
+                    scanner.nextLine();
+                    String readerIDDelete;
+                    int indexReaderDelete;
+                    do {
+                        ShowAllReaders(dataController, readerFileName);
+                        System.out.println("Nhập mã người đọc cần xóa: ");
+                        readerIDDelete = scanner.nextLine();
+
+                        indexReaderDelete = GetIndexReader(readers, readerIDDelete);
+                        if (indexReaderDelete == -1){
+                            System.out.println("Mã người đọc không tồn tại");
+                        } else {
+                            readers.remove(indexReaderDelete);
+                            break;
+                        }
+                    }while (true);
                     dataController.UpdateReaderFile(readers, readerFileName);
                     break;
             }
