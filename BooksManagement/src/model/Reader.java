@@ -1,7 +1,7 @@
 package model;
 
 public class Reader {
-    private String readerID;
+    private int readerID;
     private String fullName;
     private String address;
     private String phoneNumber;
@@ -9,18 +9,18 @@ public class Reader {
     public Reader() {
     }
 
-    public Reader(String readerID, String fullName, String address, String phoneNumber) {
+    public Reader(int readerID, String fullName, String address, String phoneNumber) {
         this.readerID = readerID;
         this.fullName = fullName;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
 
-    public String getReaderID() {
+    public int getReaderID() {
         return readerID;
     }
 
-    public void setReaderID(String readerID) {
+    public void setReaderID(int readerID) {
         this.readerID = readerID;
     }
 

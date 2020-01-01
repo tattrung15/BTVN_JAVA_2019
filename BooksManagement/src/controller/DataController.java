@@ -90,7 +90,7 @@ public class DataController {
 
     private Reader createReaderFromData(String data) {
         String[] datas = data.split("\\|");
-        Reader reader = new Reader(datas[0], datas[1], datas[2], datas[3]);
+        Reader reader = new Reader(Integer.parseInt(datas[0]), datas[1], datas[2], datas[3]);
         return reader;
     }
 
@@ -108,7 +108,7 @@ public class DataController {
 
     private Book createBookFromData(String data) {
         String[] datas = data.split("\\|");
-        Book book = new Book(datas[0], datas[1], datas[2], datas[3],
+        Book book = new Book(Integer.parseInt(datas[0]), datas[1], datas[2], datas[3],
                 Integer.parseInt(datas[4]), Integer.parseInt(datas[5]));
         return book;
     }
@@ -129,7 +129,9 @@ public class DataController {
 
     private BookReaderManagement createBRMFromData(String data, ArrayList<Book> books, ArrayList<Reader> readers) {
         String[] datas = data.split("\\|");
-        BookReaderManagement brm = new BookReaderManagement(getBook(books, datas[0]), getReader(readers, datas[1]),
+        Book book = getBook(books, Integer.parseInt(datas[0]));
+        BookReaderManagement brm = new BookReaderManagement(book,
+                getReader(readers, Integer.parseInt(datas[1])),
                 Integer.parseInt(datas[2]), datas[3], Integer.parseInt(datas[4]));
         return brm;
     }
@@ -167,24 +169,24 @@ public class DataController {
         }
         OpenFileToWrite(fileName);
         for (BookReaderManagement brm : brms) {
-            printWriter.println(brm.getReader().getReaderID() + "|" + brm.getBook().getBookID() + "|" +
+            printWriter.println(brm.getBook().getBookID() + "|" + brm.getReader().getReaderID() + "|" +
                     brm.getNumOfBorrow() + "|" + brm.getState() + "|" + brm.getTotalBorrow());
         }
         CloseFileAfterWrite();
     }
 
-    private Reader getReader(ArrayList<Reader> readers, String readerID) {
+    private static Reader getReader(ArrayList<Reader> readers, int readerID) {
         for (int i = 0; i < readers.size(); i++) {
-            if (readers.get(i).getReaderID().equals(readerID)){
+            if (readers.get(i).getReaderID() == readerID){
                 return readers.get(i);
             }
         }
         return null;
     }
 
-    private Book getBook(ArrayList<Book> books, String bookID) {
-        for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getBookID().equals(bookID)){
+    private static Book getBook(ArrayList<Book> books, int bookID) {
+        for (int i = 0; i < books.size(); i++){
+            if (books.get(i).getBookID() == bookID){
                 return books.get(i);
             }
         }

@@ -1,6 +1,6 @@
 package model;
 
-public class BookReaderManagement {
+public class BookReaderManagement{
     private Book book;
     private Reader reader;
     private int numOfBorrow;

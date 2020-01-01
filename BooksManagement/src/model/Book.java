@@ -1,7 +1,7 @@
 package model;
 
 public class Book {
-    private String bookID;
+    private int bookID;
     private String bookName;
     private String author;
     private String specialization;
@@ -11,7 +11,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String bookID, String bookName, String author, String specialization, int publishYear, int quantity) {
+    public Book(int bookID, String bookName, String author, String specialization, int publishYear, int quantity) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.author = author;
@@ -20,11 +20,11 @@ public class Book {
         this.quantity = quantity;
     }
 
-    public String getBookID() {
+    public int getBookID() {
         return bookID;
     }
 
-    public void setBookID(String bookID) {
+    public void setBookID(int bookID) {
         this.bookID = bookID;
     }
 

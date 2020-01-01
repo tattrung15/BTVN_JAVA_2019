@@ -1,6 +1,7 @@
 package view;
 
 import controller.DataController;
+import controller.DataUtility;
 import model.Book;
 import model.BookReaderManagement;
 import model.Reader;
@@ -13,10 +14,14 @@ public class View {
         String bookFileName = "BOOK.DAT";
         String readerFileName = "READER.DAT";
         String brmFileName = "BRM.DAT";
+
         DataController dataController = new DataController();
+        DataUtility dataUtility = new DataUtility();
+
         ArrayList<Book> books;
         ArrayList<Reader> readers;
         ArrayList<BookReaderManagement> brms;
+
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -30,6 +35,7 @@ public class View {
             System.out.println("7. Delete book");
             System.out.println("8. Delete reader");
             System.out.println("9. Create management information borrow");
+            System.out.println("10. Show all management information borrow");
             System.out.println("0. Exit");
 
             System.out.println("Your choice: ");
@@ -40,21 +46,27 @@ public class View {
                     break;
                 case 1:
                     books = dataController.ReadBookFromFile(bookFileName);
-                    String bookIDAdd, bookName, author, specialization;
-                    int publishYear, quantity;
-                    scanner.nextLine();
-                    int checkExistsBook;
+                    String bookName, author, specialization;
+                    String regexBookID = "^\\d{8,}$";
+                    int bookIDAdd, publishYear, quantity, checkExistsBook;
                     do {
                         System.out.println("Nhập mã sách: ");
-                        bookIDAdd = scanner.nextLine();
+                        bookIDAdd = scanner.nextInt();
 
                         checkExistsBook = GetIndexBook(books, bookIDAdd);
-                        if (checkExistsBook != -1){
-                            System.out.println("Mã sách đã tồn tại");
+
+                        if(String.valueOf(bookIDAdd).matches(regexBookID)){
+                            if (checkExistsBook != -1){
+                                System.out.println("Mã sách đã tồn tại");
+                            } else {
+                                break;
+                            }
                         } else {
-                            break;
+                            System.out.println("Mã sách tối thiểu 8 kí tự");
                         }
+
                     }while (true);
+                    scanner.nextLine();
                     System.out.println("Nhập tên sách: ");
                     bookName = scanner.nextLine();
                     System.out.println("Nhập tác giả: ");
@@ -83,19 +95,21 @@ public class View {
                     ShowAllBooks(dataController, bookFileName);
                     break;
                 case 3:
-                    scanner.nextLine();
                     books = dataController.ReadBookFromFile(bookFileName);
-                    String bookIDEdit;
+                    int bookIDEdit;
 
                     int indexEditBook;
                     do {
                         ShowAllBooks(dataController, bookFileName);
                         System.out.println("Nhập mã sách cần sửa: ");
-                        bookIDEdit = scanner.nextLine();
+                        bookIDEdit = scanner.nextInt();
                         indexEditBook = GetIndexBook(books, bookIDEdit);
                         if (indexEditBook != -1){
                             break;
+                        } else {
+                            System.out.println("Mã sách không tồn tại");
                         }
+
                     }while (true);
 
                     String bookNameEdit, authorEdit, specializationEdit;
@@ -156,20 +170,27 @@ public class View {
                     break;
                 case 4:
                     readers = dataController.ReadReaderFromFile(readerFileName);
-                    scanner.nextLine();
-                    String readerIDAdd, fullName, address, phoneNumber;
+                    int readerIDAdd;
+                    String fullName, address, phoneNumber;
+                    String regexReaderID = "^\\d{6,}$";
                     int checkExistsReader;
                     do {
                         System.out.println("Nhập mã người đọc: ");
-                        readerIDAdd = scanner.nextLine();
+                        readerIDAdd = scanner.nextInt();
 
                         checkExistsReader = GetIndexReader(readers, readerIDAdd);
-                        if (checkExistsReader != -1){
-                            System.out.println("Mã người đọc đã tồn tại");
+
+                        if(String.valueOf(readerIDAdd).matches(regexReaderID)){
+                            if (checkExistsReader != -1){
+                                System.out.println("Mã người đọc đã tồn tại");
+                            } else {
+                                break;
+                            }
                         } else {
-                            break;
+                            System.out.println("Mã người đọc tối thiểu 6 kí tự");
                         }
                     }while (true);
+                    scanner.nextLine();
                     System.out.println("Nhập học tên người đọc: ");
                     fullName = scanner.nextLine();
                     System.out.println("Nhập địa chỉ người đọc: ");
@@ -183,18 +204,19 @@ public class View {
                     ShowAllReaders(dataController, readerFileName);
                     break;
                 case 6:
-                    scanner.nextLine();
                     readers = dataController.ReadReaderFromFile(readerFileName);
-                    String readerIDEdit;
+                    int readerIDEdit;
 
                     int indexEditReader;
                     do {
                         ShowAllReaders(dataController, readerFileName);
                         System.out.println("Nhập mã người đọc cần sửa: ");
-                        readerIDEdit = scanner.nextLine();
+                        readerIDEdit = scanner.nextInt();
                         indexEditReader = GetIndexReader(readers, readerIDEdit);
                         if (indexEditReader != -1){
                             break;
+                        } else {
+                            System.out.println("Mã người đọc không tồn tại");
                         }
                     }while (true);
 
@@ -231,13 +253,12 @@ public class View {
                     break;
                 case 7:
                     books = dataController.ReadBookFromFile(bookFileName);
-                    scanner.nextLine();
-                    String bookIDDelete;
+                    int bookIDDelete;
                     int indexBookDelete;
                     do {
                         ShowAllBooks(dataController, bookFileName);
                         System.out.println("Nhập mã sách cần xóa: ");
-                        bookIDDelete = scanner.nextLine();
+                        bookIDDelete = scanner.nextInt();
 
                         indexBookDelete = GetIndexBook(books, bookIDDelete);
                         if (indexBookDelete == -1){
@@ -251,13 +272,12 @@ public class View {
                     break;
                 case 8:
                     readers = dataController.ReadReaderFromFile(readerFileName);
-                    scanner.nextLine();
-                    String readerIDDelete;
+                    int readerIDDelete;
                     int indexReaderDelete;
                     do {
                         ShowAllReaders(dataController, readerFileName);
                         System.out.println("Nhập mã người đọc cần xóa: ");
-                        readerIDDelete = scanner.nextLine();
+                        readerIDDelete = scanner.nextInt();
 
                         indexReaderDelete = GetIndexReader(readers, readerIDDelete);
                         if (indexReaderDelete == -1){
@@ -276,7 +296,8 @@ public class View {
                     books = dataController.ReadBookFromFile(bookFileName);
                     brms = dataController.ReadBRMFromFile(brmFileName);
 
-                    String bookID, readerID, status;
+                    int bookID, readerID;
+                    String status;
                     boolean isBorrowable;
                     boolean isFull;
                     int checkExistReader, checkExistBook, total;
@@ -284,7 +305,7 @@ public class View {
                     do {
                         ShowAllReaders(dataController, readerFileName);
                         System.out.println("Nhập mã người đọc: ");
-                        readerID = scanner.nextLine();
+                        readerID = scanner.nextInt();
 
                         checkExistReader = GetIndexReader(readers, readerID);
                         isBorrowable = checkBorrowed(brms, readerID);
@@ -302,7 +323,7 @@ public class View {
                     do {
                         ShowAllBooks(dataController, bookFileName);
                         System.out.println("Nhập mã sách: ");
-                        bookID = scanner.nextLine();
+                        bookID = scanner.nextInt();
 
                         checkExistBook = GetIndexBook(books, bookID);
                         isFull = checkFull(brms, readerID, bookID);
@@ -339,54 +360,61 @@ public class View {
                     BookReaderManagement brm =
                             new BookReaderManagement(currentBook, currentReader, total, status, 0);
 
+                    brms = dataUtility.UpdateBRMInfo(brms, brm);
+                    brms = dataUtility.UpdateTotalBorrow(brms);
+                    dataController.UpdateBRMtoFile(brms, brmFileName);
+
+                    break;
+                case 10:
+                    dataController.ReadBRMFromFile(brmFileName);
                     break;
             }
 
         }while (choice != 0);
     }
 
-    private static Reader GetReader(ArrayList<Reader> readers, String readerID) {
+    private static Reader GetReader(ArrayList<Reader> readers, int readerID) {
         for (Reader r: readers) {
-            if (r.getReaderID().equalsIgnoreCase(readerID)){
+            if (r.getReaderID() == readerID){
                 return r;
             }
         }
         return null;
     }
 
-    private static Book GetBook(ArrayList<Book> books, String bookID) {
+    private static Book GetBook(ArrayList<Book> books, int bookID) {
         for (Book b: books) {
-            if (b.getBookID().equalsIgnoreCase(bookID)){
+            if (b.getBookID() == bookID){
                 return b;
             }
         }
         return null;
     }
 
-    private static boolean checkFull(ArrayList<BookReaderManagement> brms, String readerID, String bookID) {
+    private static boolean checkFull(ArrayList<BookReaderManagement> brms, int readerID, int bookID) {
         for (BookReaderManagement r: brms) {
-            if (r.getReader().getReaderID().equalsIgnoreCase(readerID) &&
-                    r.getBook().getBookID().equalsIgnoreCase(bookID) && r.getNumOfBorrow() == 3){
+            if (r.getReader().getReaderID() == readerID &&
+                    r.getBook().getBookID() == bookID && r.getNumOfBorrow() == 3){
                 return true;
             }
         }
         return false;
     }
 
-    private static int GetTotal(ArrayList<BookReaderManagement> brms, String readerID, String bookID) {
+    private static int GetTotal(ArrayList<BookReaderManagement> brms, int readerID, int bookID) {
         for (BookReaderManagement r: brms) {
-            if (r.getReader().getReaderID().equalsIgnoreCase(readerID) &&
-                    r.getBook().getBookID().equalsIgnoreCase(bookID)){
+            if (r.getReader().getReaderID() == readerID &&
+                    r.getBook().getBookID() == bookID){
                 return r.getNumOfBorrow();
             }
         }
         return 0;
     }
 
-    private static boolean checkBorrowed(ArrayList<BookReaderManagement> brms, String readerID) {
+    private static boolean checkBorrowed(ArrayList<BookReaderManagement> brms, int readerID) {
         int count = 0;
         for (BookReaderManagement r : brms) {
-            if (r.getReader().getReaderID().equalsIgnoreCase(readerID)){
+            if (r.getReader().getReaderID() == readerID){
                 count += r.getNumOfBorrow();
             }
         }
@@ -396,18 +424,18 @@ public class View {
         return true;
     }
 
-    private static int GetIndexBook(ArrayList<Book> books, String bookID) {
+    private static int GetIndexBook(ArrayList<Book> books, int bookID) {
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getBookID().equalsIgnoreCase(bookID)){
+            if (books.get(i).getBookID() == bookID){
                 return i;
             }
         }
         return -1;
     }
 
-    private static int GetIndexReader(ArrayList<Reader> readers, String readerID) {
+    private static int GetIndexReader(ArrayList<Reader> readers, int readerID) {
         for (int i = 0; i < readers.size(); i++) {
-            if (readers.get(i).getReaderID().equalsIgnoreCase(readerID)){
+            if (readers.get(i).getReaderID() == readerID){
                 return i;
             }
         }
@@ -425,6 +453,13 @@ public class View {
         ArrayList<Book> books = dataController.ReadBookFromFile(fileName);
         for (Book book : books) {
             System.out.println(book);
+        }
+    }
+
+    public static void ShowAllBRMs(DataController dataController, String fileName){
+        ArrayList<BookReaderManagement> brms = dataController.ReadBRMFromFile(fileName);
+        for (BookReaderManagement r : brms) {
+            System.out.println(r);
         }
     }
 }
