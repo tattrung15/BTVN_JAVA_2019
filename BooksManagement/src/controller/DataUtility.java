@@ -1,6 +1,8 @@
 package controller;
 
+import model.Book;
 import model.BookReaderManagement;
+import model.Reader;
 
 import java.util.ArrayList;
 
@@ -35,5 +37,69 @@ public class DataUtility {
             brms.set(i, b);
         }
         return brms;
+    }
+
+    //Sort readers by id
+    public void SortByID(ArrayList<Reader> readers){
+        for (int i = 0; i < readers.size() - 1; i++) {
+            for(int j = readers.size() - 1; j > i; j--){
+                Reader r1 = readers.get(j - 1);
+                Reader r2 = readers.get(j);
+                if (r1.getReaderID() > r2.getReaderID()){
+                    Reader rt = r1;
+                    readers.set(j - 1, r2);
+                    readers.set(j, rt);
+                }
+            }
+        }
+    }
+
+    //sort books by id
+    public void SortByID(ArrayList<Book> books, int id){
+        for (int i = 0; i < books.size() - 1; i++) {
+            for(int j = books.size() - 1; j > i; j--){
+                Book b1 = books.get(j - 1);
+                Book b2 = books.get(j);
+                if (b1.getBookID() > b2.getBookID()){
+                    Book bt = b1;
+                    books.set(j - 1, b2);
+                    books.set(j, bt);
+                }
+            }
+        }
+    }
+
+    //sort reader by name
+    public void SortByName(ArrayList<Reader> readers){
+        String regex = "\\s+";
+        for (int i = 0; i < readers.size() - 1; i++) {
+            for(int j = readers.size() - 1; j > i; j--){
+                String[] r1 = readers.get(j - 1).getFullName().split(regex);
+                String[] r2 = readers.get(j).getFullName().split(regex);
+
+                if (r1[r1.length - 1].toLowerCase().compareTo(r2[r2.length - 1].toLowerCase()) > 0){
+                    Reader rt = readers.get(j - 1);
+                    readers.set(j - 1, readers.get(j));
+                    readers.set(j, rt);
+                }
+            }
+        }
+    }
+
+    //sort books by name
+    public void SortByName(ArrayList<Book> books, int id){
+        String regex = "\\s+";
+        for (int i = 0; i < books.size() - 1; i++) {
+            for(int j = books.size() - 1; j > i; j--){
+                String[] r1 = books.get(j - 1).getBookName().split(regex);
+                String[] r2 = books.get(j).getBookName().split(regex);
+
+                if (r1[r1.length - 1].toLowerCase().compareTo(r2[r2.length - 1].toLowerCase()) > 0){
+                    Book rt = books.get(j - 1);
+                    books.set(j - 1, books.get(j));
+                    books.set(j, rt);
+                }
+            }
+        }
     }
 }

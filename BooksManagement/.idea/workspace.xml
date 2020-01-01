@@ -6,13 +6,11 @@
       <change beforePath="$PROJECT_DIR$/BOOK.DAT" beforeDir="false" afterPath="$PROJECT_DIR$/BOOK.DAT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BRM.DAT" beforeDir="false" afterPath="$PROJECT_DIR$/BRM.DAT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/READER.DAT" beforeDir="false" afterPath="$PROJECT_DIR$/READER.DAT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BooksManagement/controller/DataController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BooksManagement/controller/DataController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/BooksManagement/controller/DataUtility.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BooksManagement/controller/DataUtility.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BooksManagement/model/BookReaderManagement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BooksManagement/model/BookReaderManagement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/BooksManagement/view/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BooksManagement/view/View.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/DataUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/DataUtility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/BookReaderManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BookReaderManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Reader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +74,20 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.View">
+    <configuration name="Demo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.Demo" />
+      <module name="BooksManagement" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="View" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="view.View" />
       <module name="BooksManagement" />
@@ -93,6 +104,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.View" />
+        <item itemvalue="Application.Demo" />
       </list>
     </recent_temporary>
   </component>
@@ -150,22 +162,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="140" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1577865034155" />
-    <state width="1493" height="491" key="GridCell.Tab.0.bottom" timestamp="1577868864532">
+    <state width="1493" height="635" key="GridCell.Tab.0.bottom" timestamp="1577875075611">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="491" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1577868864532" />
-    <state width="1493" height="491" key="GridCell.Tab.0.center" timestamp="1577868864532">
+    <state width="1493" height="635" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1577875075611" />
+    <state width="1493" height="635" key="GridCell.Tab.0.center" timestamp="1577875075611">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="491" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1577868864532" />
-    <state width="1493" height="491" key="GridCell.Tab.0.left" timestamp="1577868864532">
+    <state width="1493" height="635" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1577875075611" />
+    <state width="1493" height="635" key="GridCell.Tab.0.left" timestamp="1577875075611">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="491" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1577868864532" />
-    <state width="1493" height="491" key="GridCell.Tab.0.right" timestamp="1577868864532">
+    <state width="1493" height="635" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1577875075611" />
+    <state width="1493" height="635" key="GridCell.Tab.0.right" timestamp="1577875075611">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="491" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1577868864532" />
+    <state width="1493" height="635" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1577875075611" />
     <state width="1493" height="270" key="GridCell.Tab.1.bottom" timestamp="1577866677947">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

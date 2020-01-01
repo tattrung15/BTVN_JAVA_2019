@@ -27,15 +27,18 @@ public class View {
         do {
             System.out.println("----------------------------------------MENU----------------------------------------");
             System.out.println("1. Add book");
-            System.out.println("2. Show all books");
+            System.out.println("2. Show all book");
             System.out.println("3. Edit book");
             System.out.println("4. Add reader");
-            System.out.println("5. Show all readers");
+            System.out.println("5. Show all reader");
             System.out.println("6. Edit reader");
             System.out.println("7. Delete book");
             System.out.println("8. Delete reader");
             System.out.println("9. Create management information borrow");
             System.out.println("10. Show all management information borrow");
+            System.out.println("11. Sort all book");
+            System.out.println("12. Sort all reader");
+            System.out.println("13. Sort all management information borrow");
             System.out.println("0. Exit");
 
             System.out.println("Your choice: ");
@@ -92,7 +95,7 @@ public class View {
                     dataController.WriteBookToFile(bookFileName, book);
                     break;
                 case 2:
-                    ShowAllBooks(dataController, bookFileName);
+                    ShowAllBook(dataController, bookFileName);
                     break;
                 case 3:
                     books = dataController.ReadBookFromFile(bookFileName);
@@ -100,7 +103,7 @@ public class View {
 
                     int indexEditBook;
                     do {
-                        ShowAllBooks(dataController, bookFileName);
+                        ShowAllBook(dataController, bookFileName);
                         System.out.println("Nhập mã sách cần sửa: ");
                         bookIDEdit = scanner.nextInt();
                         indexEditBook = GetIndexBook(books, bookIDEdit);
@@ -197,11 +200,12 @@ public class View {
                     address = scanner.nextLine();
                     System.out.println("Nhập số điện thoại người đọc: ");
                     phoneNumber = scanner.nextLine();
+
                     Reader reader = new Reader(readerIDAdd, fullName, address, phoneNumber);
                     dataController.WtriteReaderToFile(readerFileName, reader);
                     break;
                 case 5:
-                    ShowAllReaders(dataController, readerFileName);
+                    ShowAllReader(dataController, readerFileName);
                     break;
                 case 6:
                     readers = dataController.ReadReaderFromFile(readerFileName);
@@ -209,7 +213,7 @@ public class View {
 
                     int indexEditReader;
                     do {
-                        ShowAllReaders(dataController, readerFileName);
+                        ShowAllReader(dataController, readerFileName);
                         System.out.println("Nhập mã người đọc cần sửa: ");
                         readerIDEdit = scanner.nextInt();
                         indexEditReader = GetIndexReader(readers, readerIDEdit);
@@ -256,7 +260,7 @@ public class View {
                     int bookIDDelete;
                     int indexBookDelete;
                     do {
-                        ShowAllBooks(dataController, bookFileName);
+                        ShowAllBook(dataController, bookFileName);
                         System.out.println("Nhập mã sách cần xóa: ");
                         bookIDDelete = scanner.nextInt();
 
@@ -275,7 +279,7 @@ public class View {
                     int readerIDDelete;
                     int indexReaderDelete;
                     do {
-                        ShowAllReaders(dataController, readerFileName);
+                        ShowAllReader(dataController, readerFileName);
                         System.out.println("Nhập mã người đọc cần xóa: ");
                         readerIDDelete = scanner.nextInt();
 
@@ -290,8 +294,6 @@ public class View {
                     dataController.UpdateReaderFile(readers, readerFileName);
                     break;
                 case 9:
-                    scanner.nextLine();
-
                     readers = dataController.ReadReaderFromFile(readerFileName);
                     books = dataController.ReadBookFromFile(bookFileName);
                     brms = dataController.ReadBRMFromFile(brmFileName);
@@ -303,7 +305,7 @@ public class View {
                     int checkExistReader, checkExistBook, total;
 
                     do {
-                        ShowAllReaders(dataController, readerFileName);
+                        ShowAllReader(dataController, readerFileName);
                         System.out.println("Nhập mã người đọc: ");
                         readerID = scanner.nextInt();
 
@@ -321,7 +323,7 @@ public class View {
                     }while (true);
 
                     do {
-                        ShowAllBooks(dataController, bookFileName);
+                        ShowAllBook(dataController, bookFileName);
                         System.out.println("Nhập mã sách: ");
                         bookID = scanner.nextInt();
 
@@ -366,7 +368,44 @@ public class View {
 
                     break;
                 case 10:
-                    dataController.ReadBRMFromFile(brmFileName);
+                    ShowAllBRM(dataController, brmFileName);
+                    break;
+                case 11:
+                    books = dataController.ReadBookFromFile(bookFileName);
+                    int choiceSortBook;
+                    do {
+                        System.out.println("1. Sắp xếp theo mã sách");
+                        System.out.println("2. Sắp xếp theo tên sách");
+                        choiceSortBook = scanner.nextInt();
+
+                    }while (choiceSortBook <= 0 || choiceSortBook >= 3);
+                    if (choiceSortBook == 1){
+                        dataUtility.SortByID(books, 0);
+                    } else {
+                        dataUtility.SortByName(books, 0);
+                    }
+                    dataController.UpdateBookFile(books, bookFileName);
+                    ShowAllBook(dataController, bookFileName);
+                    break;
+                case 12:
+                    readers = dataController.ReadReaderFromFile(readerFileName);
+                    int choiceSortReader;
+                    do {
+                        System.out.println("1. Sắp xếp theo mã người đọc");
+                        System.out.println("2. Sắp xếp theo tên người đọc");
+                        choiceSortReader = scanner.nextInt();
+
+                    }while (choiceSortReader <= 0 || choiceSortReader >= 3);
+                    if (choiceSortReader == 1){
+                        dataUtility.SortByID(readers);
+                    } else {
+                        dataUtility.SortByName(readers);
+                    }
+                    dataController.UpdateReaderFile(readers, readerFileName);
+                    ShowAllReader(dataController, readerFileName);
+                    break;
+                case 13:
+                    //code here
                     break;
             }
 
@@ -442,21 +481,21 @@ public class View {
         return -1;
     }
 
-    private static void ShowAllReaders(DataController dataController, String readerFileName) {
+    private static void ShowAllReader(DataController dataController, String readerFileName) {
         ArrayList<Reader> readers = dataController.ReadReaderFromFile(readerFileName);
         for (Reader reader: readers) {
             System.out.println(reader);
         }
     }
 
-    public static void ShowAllBooks(DataController dataController, String fileName){
+    public static void ShowAllBook(DataController dataController, String fileName){
         ArrayList<Book> books = dataController.ReadBookFromFile(fileName);
         for (Book book : books) {
             System.out.println(book);
         }
     }
 
-    public static void ShowAllBRMs(DataController dataController, String fileName){
+    public static void ShowAllBRM(DataController dataController, String fileName){
         ArrayList<BookReaderManagement> brms = dataController.ReadBRMFromFile(fileName);
         for (BookReaderManagement r : brms) {
             System.out.println(r);
