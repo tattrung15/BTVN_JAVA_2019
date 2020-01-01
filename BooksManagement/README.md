@@ -4,7 +4,7 @@ Thông tin về Reader (readerID, fullName, address, phoneNumber).
 
 Thêm lớp BookReaderManagerment trong đó một Reader sẽ được phép mượn tối đa 5 đầu Book khác nhau, mỗi đầu Book tối đa 3 cuốn. Ghi rõ tình trạng hiện thời của Book khi mượn.
 
-Viết chương trình Java có menu cho phép chọn thực hiện các chức năng sau:
+Viết chương trình Java cho phép chọn thực hiện các chức năng sau:
 
 1. Thêm Book vào file BOOK.DAT.
 2. In ra danh sách các Book đã có trong file.

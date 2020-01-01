@@ -131,7 +131,7 @@ public class DataController {
         String[] datas = data.split("\\|");
         BookReaderManagement brm = new BookReaderManagement(getBook(books, datas[0]), getReader(readers, datas[1]),
                 Integer.parseInt(datas[2]), datas[3], Integer.parseInt(datas[4]));
-        return null;
+        return brm;
     }
 
     public void UpdateBookFile(ArrayList<Book> books, String fileName){
@@ -156,6 +156,19 @@ public class DataController {
         for (Reader reader : readers) {
             printWriter.println(reader.getReaderID() + "|" + reader.getFullName() + "|" + reader.getAddress() + "|" +
                     reader.getPhoneNumber());
+        }
+        CloseFileAfterWrite();
+    }
+
+    public void UpdateBRMtoFile(ArrayList<BookReaderManagement> brms, String fileName){
+        File file = new File(fileName);
+        if (file.exists()){
+            file.delete();
+        }
+        OpenFileToWrite(fileName);
+        for (BookReaderManagement brm : brms) {
+            printWriter.println(brm.getReader().getReaderID() + "|" + brm.getBook().getBookID() + "|" +
+                    brm.getNumOfBorrow() + "|" + brm.getState() + "|" + brm.getTotalBorrow());
         }
         CloseFileAfterWrite();
     }

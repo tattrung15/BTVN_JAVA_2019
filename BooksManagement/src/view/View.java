@@ -16,6 +16,7 @@ public class View {
         DataController dataController = new DataController();
         ArrayList<Book> books;
         ArrayList<Reader> readers;
+        ArrayList<BookReaderManagement> brms;
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
@@ -39,15 +40,15 @@ public class View {
                     break;
                 case 1:
                     books = dataController.ReadBookFromFile(bookFileName);
-                    String bookID, bookName, author, specialization;
+                    String bookIDAdd, bookName, author, specialization;
                     int publishYear, quantity;
                     scanner.nextLine();
                     int checkExistsBook;
                     do {
                         System.out.println("Nhập mã sách: ");
-                        bookID = scanner.nextLine();
+                        bookIDAdd = scanner.nextLine();
 
-                        checkExistsBook = GetIndexBook(books, bookID);
+                        checkExistsBook = GetIndexBook(books, bookIDAdd);
                         if (checkExistsBook != -1){
                             System.out.println("Mã sách đã tồn tại");
                         } else {
@@ -75,7 +76,7 @@ public class View {
                     publishYear = scanner.nextInt();
                     System.out.println("Nhập số lượng: ");
                     quantity = scanner.nextInt();
-                    Book book = new Book(bookID, bookName, author, specialization, publishYear, quantity);
+                    Book book = new Book(bookIDAdd, bookName, author, specialization, publishYear, quantity);
                     dataController.WriteBookToFile(bookFileName, book);
                     break;
                 case 2:
@@ -156,13 +157,13 @@ public class View {
                 case 4:
                     readers = dataController.ReadReaderFromFile(readerFileName);
                     scanner.nextLine();
-                    String readerID, fullName, address, phoneNumber;
+                    String readerIDAdd, fullName, address, phoneNumber;
                     int checkExistsReader;
                     do {
                         System.out.println("Nhập mã người đọc: ");
-                        readerID = scanner.nextLine();
+                        readerIDAdd = scanner.nextLine();
 
-                        checkExistsReader = GetIndexReader(readers, readerID);
+                        checkExistsReader = GetIndexReader(readers, readerIDAdd);
                         if (checkExistsReader != -1){
                             System.out.println("Mã người đọc đã tồn tại");
                         } else {
@@ -175,7 +176,7 @@ public class View {
                     address = scanner.nextLine();
                     System.out.println("Nhập số điện thoại người đọc: ");
                     phoneNumber = scanner.nextLine();
-                    Reader reader = new Reader(readerID, fullName, address, phoneNumber);
+                    Reader reader = new Reader(readerIDAdd, fullName, address, phoneNumber);
                     dataController.WtriteReaderToFile(readerFileName, reader);
                     break;
                 case 5:
@@ -269,11 +270,130 @@ public class View {
                     dataController.UpdateReaderFile(readers, readerFileName);
                     break;
                 case 9:
-                    //code here
+                    scanner.nextLine();
+
+                    readers = dataController.ReadReaderFromFile(readerFileName);
+                    books = dataController.ReadBookFromFile(bookFileName);
+                    brms = dataController.ReadBRMFromFile(brmFileName);
+
+                    String bookID, readerID, status;
+                    boolean isBorrowable;
+                    boolean isFull;
+                    int checkExistReader, checkExistBook, total;
+
+                    do {
+                        ShowAllReaders(dataController, readerFileName);
+                        System.out.println("Nhập mã người đọc: ");
+                        readerID = scanner.nextLine();
+
+                        checkExistReader = GetIndexReader(readers, readerID);
+                        isBorrowable = checkBorrowed(brms, readerID);
+
+                        if (checkExistReader == -1){
+                            System.out.println("Người đọc không tồn tại");
+                        } else if (isBorrowable){
+                            break;
+                        } else {
+                            System.out.println("Người đọc đã mượn đủ số lượng cho phép");
+                        }
+
+                    }while (true);
+
+                    do {
+                        ShowAllBooks(dataController, bookFileName);
+                        System.out.println("Nhập mã sách: ");
+                        bookID = scanner.nextLine();
+
+                        checkExistBook = GetIndexBook(books, bookID);
+                        isFull = checkFull(brms, readerID, bookID);
+
+                        if (checkExistBook == -1){
+                            System.out.println("Sách không tồn tại");
+                        }else if (isFull){
+                            System.out.println("Vui lòng chọn đầu sách khác");
+                        } else {
+                            break;
+                        }
+
+                    }while (true);
+
+                    total = GetTotal(brms, readerID, bookID);
+
+                    do {
+                        System.out.print("Nhập số lượng mượn, tối đa 3 cuốn ( đã mượn "+ total + " ): ");
+                        int x = scanner.nextInt();
+                        if ((x + total) >= 1 && (x + total) <= 3){
+                            total += x;
+                            break;
+                        } else {
+                            System.out.println("Nhập quá số lượng cho phép");
+                        }
+                    }while (true);
+                    scanner.nextLine();
+
+                    System.out.println("Nhập tình trạng của book: ");
+                    status = scanner.nextLine();
+
+                    Book currentBook = GetBook(books, bookID);
+                    Reader currentReader = GetReader(readers, readerID);
+                    BookReaderManagement brm =
+                            new BookReaderManagement(currentBook, currentReader, total, status, 0);
+
                     break;
             }
 
         }while (choice != 0);
+    }
+
+    private static Reader GetReader(ArrayList<Reader> readers, String readerID) {
+        for (Reader r: readers) {
+            if (r.getReaderID().equalsIgnoreCase(readerID)){
+                return r;
+            }
+        }
+        return null;
+    }
+
+    private static Book GetBook(ArrayList<Book> books, String bookID) {
+        for (Book b: books) {
+            if (b.getBookID().equalsIgnoreCase(bookID)){
+                return b;
+            }
+        }
+        return null;
+    }
+
+    private static boolean checkFull(ArrayList<BookReaderManagement> brms, String readerID, String bookID) {
+        for (BookReaderManagement r: brms) {
+            if (r.getReader().getReaderID().equalsIgnoreCase(readerID) &&
+                    r.getBook().getBookID().equalsIgnoreCase(bookID) && r.getNumOfBorrow() == 3){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static int GetTotal(ArrayList<BookReaderManagement> brms, String readerID, String bookID) {
+        for (BookReaderManagement r: brms) {
+            if (r.getReader().getReaderID().equalsIgnoreCase(readerID) &&
+                    r.getBook().getBookID().equalsIgnoreCase(bookID)){
+                return r.getNumOfBorrow();
+            }
+        }
+        return 0;
+    }
+
+    private static boolean checkBorrowed(ArrayList<BookReaderManagement> brms, String readerID) {
+        int count = 0;
+        for (BookReaderManagement r : brms) {
+            if (r.getReader().getReaderID().equalsIgnoreCase(readerID)){
+                count += r.getNumOfBorrow();
+            }
+        }
+        if (count == 15){
+            return false;
+        }
+        return true;
     }
 
     private static int GetIndexBook(ArrayList<Book> books, String bookID) {

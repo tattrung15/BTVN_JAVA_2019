@@ -4,17 +4,17 @@ public class BookReaderManagement {
     private Book book;
     private Reader reader;
     private int numOfBorrow;
-    private String state;
+    private String status;
     private int totalBorrow;
 
     public BookReaderManagement() {
     }
 
-    public BookReaderManagement(Book book, Reader reader, int numOfBorrow, String state, int totalBorrow) {
+    public BookReaderManagement(Book book, Reader reader, int numOfBorrow, String status, int totalBorrow) {
         this.book = book;
         this.reader = reader;
         this.numOfBorrow = numOfBorrow;
-        this.state = state;
+        this.status = status;
         this.totalBorrow = totalBorrow;
     }
 
@@ -43,11 +43,11 @@ public class BookReaderManagement {
     }
 
     public String getState() {
-        return state;
+        return status;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.status = state;
     }
 
     public int getTotalBorrow() {
@@ -66,7 +66,7 @@ public class BookReaderManagement {
                 ", readerID=" + reader.getReaderID() +
                 ", readerName=" + reader.getFullName() +
                 ", numOfBorrow=" + numOfBorrow +
-                ", state='" + state + '\'' +
+                ", state='" + status + '\'' +
                 ", totalBorrow=" + totalBorrow +
                 '}';
     }
