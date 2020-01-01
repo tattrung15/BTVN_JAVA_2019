@@ -102,4 +102,37 @@ public class DataUtility {
             }
         }
     }
+
+    //sort brm by name
+    public void SortBrmByName(ArrayList<BookReaderManagement> brm){
+        String regex = "\\s+";
+        for (int i = 0; i < brm.size() - 1; i++) {
+            for(int j = brm.size() - 1; j > i; j--){
+                String[] r1 = brm.get(j - 1).getReader().getFullName().split(regex);
+                String[] r2 = brm.get(j).getReader().getFullName().split(regex);
+
+                if (r1[r1.length - 1].toLowerCase().compareTo(r2[r2.length - 1].toLowerCase()) > 0){
+                    BookReaderManagement brmt = brm.get(j - 1);
+                    brm.set(j - 1, brm.get(j));
+                    brm.set(j, brmt);
+                }
+            }
+        }
+    }
+
+    //sort brm by TotalBorrow
+    public void SortBrmByTotalBorrow(ArrayList<BookReaderManagement> brm){
+        for (int i = 0; i < brm.size() - 1; i++) {
+            for(int j = brm.size() - 1; j > i; j--){
+                int r1 = brm.get(j - 1).getTotalBorrow();
+                int r2 = brm.get(j).getTotalBorrow();
+
+                if (r1 < r2){
+                    BookReaderManagement brmt = brm.get(j - 1);
+                    brm.set(j - 1, brm.get(j));
+                    brm.set(j, brmt);
+                }
+            }
+        }
+    }
 }

@@ -405,7 +405,21 @@ public class View {
                     ShowAllReader(dataController, readerFileName);
                     break;
                 case 13:
-                    //code here
+                    brms = dataController.ReadBRMFromFile(brmFileName);
+                    int choiceSortBRM;
+                    do {
+                        System.out.println("1. Sắp xếp theo tên người đọc");
+                        System.out.println("2. Sắp xếp theo số lượng sách mượn");
+                        choiceSortBRM = scanner.nextInt();
+
+                    }while (choiceSortBRM <= 0 || choiceSortBRM >= 3);
+                    if (choiceSortBRM == 1){
+                        dataUtility.SortBrmByName(brms);
+                    } else {
+                        dataUtility.SortBrmByTotalBorrow(brms);
+                    }
+                    dataController.UpdateBRMtoFile(brms, brmFileName);
+                    ShowAllBRM(dataController, brmFileName);
                     break;
             }
 
