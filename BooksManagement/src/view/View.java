@@ -409,7 +409,7 @@ public class View {
                     int choiceSortBRM;
                     do {
                         System.out.println("1. Sắp xếp theo tên người đọc");
-                        System.out.println("2. Sắp xếp theo số lượng sách mượn");
+                        System.out.println("2. Sắp xếp theo số lượng sách mượn (giảm dần)");
                         choiceSortBRM = scanner.nextInt();
 
                     }while (choiceSortBRM <= 0 || choiceSortBRM >= 3);
