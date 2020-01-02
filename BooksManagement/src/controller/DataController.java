@@ -72,7 +72,7 @@ public class DataController {
     public void WriteBRMtoFile(String fileName, BookReaderManagement brm){
         OpenFileToWrite(fileName);
         printWriter.println(brm.getReader().getReaderID() + "|" + brm.getBook().getBookID() + "|" +
-                brm.getNumOfBorrow() + "|" + brm.getState() + "|" + brm.getTotalBorrow());
+                brm.getNumOfBorrow() + "|" + brm.getStatus() + "|" + brm.getTotalBorrow());
         CloseFileAfterWrite();
     }
 
@@ -170,7 +170,7 @@ public class DataController {
         OpenFileToWrite(fileName);
         for (BookReaderManagement brm : brms) {
             printWriter.println(brm.getBook().getBookID() + "|" + brm.getReader().getReaderID() + "|" +
-                    brm.getNumOfBorrow() + "|" + brm.getState() + "|" + brm.getTotalBorrow());
+                    brm.getNumOfBorrow() + "|" + brm.getStatus() + "|" + brm.getTotalBorrow());
         }
         CloseFileAfterWrite();
     }

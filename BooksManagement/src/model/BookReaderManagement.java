@@ -6,6 +6,7 @@ public class BookReaderManagement{
     private int numOfBorrow;
     private String status;
     private int totalBorrow;
+    private String dateTime;
 
     public BookReaderManagement() {
     }
@@ -16,6 +17,15 @@ public class BookReaderManagement{
         this.numOfBorrow = numOfBorrow;
         this.status = status;
         this.totalBorrow = totalBorrow;
+    }
+
+    public BookReaderManagement(Book book, Reader reader, int numOfBorrow, String status, int totalBorrow, String dateTime) {
+        this.book = book;
+        this.reader = reader;
+        this.numOfBorrow = numOfBorrow;
+        this.status = status;
+        this.totalBorrow = totalBorrow;
+        this.dateTime = dateTime;
     }
 
     public Book getBook() {
@@ -42,11 +52,11 @@ public class BookReaderManagement{
         this.numOfBorrow = numOfBorrow;
     }
 
-    public String getState() {
+    public String getStatus() {
         return status;
     }
 
-    public void setState(String state) {
+    public void setStatus(String state) {
         this.status = state;
     }
 
@@ -56,6 +66,14 @@ public class BookReaderManagement{
 
     public void setTotalBorrow(int totalBorrow) {
         this.totalBorrow = totalBorrow;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override
