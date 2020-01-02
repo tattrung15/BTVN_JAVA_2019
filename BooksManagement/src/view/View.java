@@ -6,7 +6,9 @@ import model.Book;
 import model.BookReaderManagement;
 import model.Reader;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class View {
@@ -362,8 +364,13 @@ public class View {
 
                     Book currentBook = GetBook(books, bookID);
                     Reader currentReader = GetReader(readers, readerID);
+
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                    Date date = new Date();
+
                     BookReaderManagement brm =
-                            new BookReaderManagement(currentBook, currentReader, total, status, 0);
+                            new BookReaderManagement(currentBook, currentReader, total, status, 0,
+                                    simpleDateFormat.format(date));
 
                     brms = dataUtility.UpdateBRMInfo(brms, brm);
                     brms = dataUtility.UpdateTotalBorrow(brms);

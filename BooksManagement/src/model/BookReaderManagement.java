@@ -86,6 +86,7 @@ public class BookReaderManagement{
                 ", numOfBorrow=" + numOfBorrow +
                 ", state='" + status + '\'' +
                 ", totalBorrow=" + totalBorrow +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
