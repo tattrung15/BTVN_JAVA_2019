@@ -10,6 +10,7 @@ Viết chương trình Java cho phép thực hiện các chức năng sau:
 6. Sửa, xóa thông tin Reader.
 7. Tạo thông tin BookReaderManagement cho từng Reader bằng cách nhập các Book Reader mượn, lưu vào file BRM.DAT và in danh sách ra màn hình (Mỗi một Reader với một Book thì chỉ xuất hiện một lần).
 8. Sắp xếp danh sách Reader.
+    
     a. Theo mã Reader.
     b. Theo tên Reader.
 9. Sắp xếp danh sách Book.
