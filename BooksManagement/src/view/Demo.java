@@ -10,7 +10,9 @@ public class Demo {
 //        Date date = new Date();
 //        System.out.println(simpleDateFormat.format(date));
         String s = "Bùi Tất Trung";
-        String[] ss = s.split("\\s+");
-        System.out.println(ss[ss.length - 1]);
+//        String[] ss = s.split("\\s+");
+//        System.out.println(ss[ss.length - 1]);
+        String name = "what do you know about me";
+        System.out.println(name.contains("me"));
     }
 }

@@ -103,8 +103,24 @@ public class DataUtility {
         }
     }
 
+    //sort brm by ReaderID
+    public void SortBRMByReaderID(ArrayList<BookReaderManagement> brm){
+        for (int i = 0; i < brm.size() - 1; i++) {
+            for(int j = brm.size() - 1; j > i; j--){
+                int brm1 = brm.get(j - 1).getReader().getReaderID();
+                int brm2 = brm.get(j).getReader().getReaderID();
+
+                if (brm1 > brm2){
+                    BookReaderManagement brmt = brm.get(j - 1);
+                    brm.set(j - 1, brm.get(j));
+                    brm.set(j, brmt);
+                }
+            }
+        }
+    }
+
     //sort brm by name
-    public void SortBrmByName(ArrayList<BookReaderManagement> brm){
+    public void SortBRMByName(ArrayList<BookReaderManagement> brm){
         String regex = "\\s+";
         for (int i = 0; i < brm.size() - 1; i++) {
             for(int j = brm.size() - 1; j > i; j--){
@@ -121,7 +137,7 @@ public class DataUtility {
     }
 
     //sort brm by TotalBorrow
-    public void SortBrmByTotalBorrow(ArrayList<BookReaderManagement> brm){
+    public void SortBRMByTotalBorrow(ArrayList<BookReaderManagement> brm){
         for (int i = 0; i < brm.size() - 1; i++) {
             for(int j = brm.size() - 1; j > i; j--){
                 int r1 = brm.get(j - 1).getTotalBorrow();
@@ -134,5 +150,85 @@ public class DataUtility {
                 }
             }
         }
+    }
+
+    //search book by ID
+    public Book SearchBookByID(ArrayList<Book> books, int id){
+        int l = 0, r = books.size() - 1;
+        while (l <= r){
+            int m = l + (r - l)/2;
+            if (books.get(m).getBookID() == id){
+                return books.get(m);
+            }
+            if (books.get(m).getBookID() > id){
+                r = m - 1;
+            }
+            if (books.get(m).getBookID() < id){
+                l = m + 1;
+            }
+        }
+        return null;
+    }
+
+    //search book by Name
+    public ArrayList<Book> SearchBookByName(ArrayList<Book> books, String name){
+        ArrayList<Book> list = new ArrayList<>();
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getBookName().contains(name)){
+                list.add(books.get(i));
+            }
+        }
+        return list;
+    }
+
+    //search reader by ID
+    public Reader SearchReaderByID(ArrayList<Reader> readers, int id){
+        int l = 0, r = readers.size() - 1;
+        while (l <= r){
+            int m = l + (r - l)/2;
+            if (readers.get(m).getReaderID() == id){
+                return readers.get(m);
+            }
+            if (readers.get(m).getReaderID() > id){
+                r = m - 1;
+            }
+            if (readers.get(m).getReaderID() < id){
+                l = m + 1;
+            }
+        }
+        return null;
+    }
+
+    //search reader by Name
+    public ArrayList<Reader> SearchReaderByName(ArrayList<Reader> readers, String name){
+        ArrayList<Reader> list = new ArrayList<>();
+        for (int i = 0; i < readers.size(); i++) {
+            if (readers.get(i).getFullName().contains(name)){
+                list.add(readers.get(i));
+            }
+        }
+        return list;
+    }
+
+    //search brm by readerID
+    public ArrayList<BookReaderManagement> SearchBRMByReaderID(ArrayList<BookReaderManagement> brms, int id){
+        ArrayList<BookReaderManagement> list = new ArrayList<>();
+        for (int i = 0; i < brms.size(); i++) {
+            if (brms.get(i).getReader().getReaderID() == id){
+                list.add(brms.get(i));
+            }
+        }
+        return list;
+    }
+
+    //search brm by readerName
+    public ArrayList<BookReaderManagement> SearchBRMByReaderName(ArrayList<BookReaderManagement> brms, String name){
+        ArrayList<BookReaderManagement> list = new ArrayList<>();
+        for (int i = 0; i < brms.size(); i++) {
+            if (brms.get(i).getReader().getFullName().contains(name)){
+                list.add(brms.get(i));
+            }
+        }
+        return list;
     }
 }

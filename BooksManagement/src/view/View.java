@@ -39,6 +39,9 @@ public class View {
             System.out.println("11. Sort all book");
             System.out.println("12. Sort all reader");
             System.out.println("13. Sort all management information borrow");
+            System.out.println("14. Search book");
+            System.out.println("15. Search reader");
+            System.out.println("16. Search management information borrow");
             System.out.println("0. Exit");
 
             System.out.println("Your choice: ");
@@ -414,12 +417,126 @@ public class View {
 
                     }while (choiceSortBRM <= 0 || choiceSortBRM >= 3);
                     if (choiceSortBRM == 1){
-                        dataUtility.SortBrmByName(brms);
+                        dataUtility.SortBRMByName(brms);
                     } else {
-                        dataUtility.SortBrmByTotalBorrow(brms);
+                        dataUtility.SortBRMByTotalBorrow(brms);
                     }
                     dataController.UpdateBRMtoFile(brms, brmFileName);
                     ShowAllBRM(dataController, brmFileName);
+                    break;
+                case 14:
+                    books = dataController.ReadBookFromFile(bookFileName);
+                    int choiceSearchBook;
+                    do {
+                        System.out.println("1. Tìm kiếm theo mã sách");
+                        System.out.println("2. Tìm kiếm theo tên sách");
+                        choiceSearchBook = scanner.nextInt();
+
+                    }while (choiceSearchBook <= 0 || choiceSearchBook >= 3);
+
+                    if (choiceSearchBook == 1){
+                        dataUtility.SortByID(books, 0);
+
+                        System.out.println("Nhập mã sách cần tìm kiếm: ");
+                        int searchBookID = scanner.nextInt();
+
+                        Book book1 = dataUtility.SearchBookByID(books, searchBookID);
+                        if (book1 != null){
+                            System.out.println(book1);
+                        } else {
+                            System.out.println("Không tìm thấy");
+                        }
+                    } else {
+                        scanner.nextLine();
+                        String searchBookName;
+                        System.out.println("Nhập tên sách cần tìm kiếm: ");
+                        searchBookName = scanner.nextLine();
+                        ArrayList<Book> books1 = dataUtility.SearchBookByName(books, searchBookName);
+                        if (books1.size() != 0){
+                            for (int i = 0; i < books1.size(); i++) {
+                                System.out.println(books1.get(i));
+                            }
+                        } else {
+                            System.out.println("Không tìm thấy");
+                        }
+                    }
+                    break;
+                case 15:
+                    readers = dataController.ReadReaderFromFile(readerFileName);
+                    int choiceSearchReader;
+                    do {
+                        System.out.println("1. Tìm kiếm theo mã người đọc");
+                        System.out.println("2. Tìm kiếm theo tên người đọc");
+                        choiceSearchReader = scanner.nextInt();
+
+                    }while (choiceSearchReader <= 0 || choiceSearchReader >= 3);
+
+                    if (choiceSearchReader == 1){
+                        dataUtility.SortByID(readers);
+
+                        System.out.println("Nhập mã người đọc cần tìm kiếm: ");
+                        int searchReaderID = scanner.nextInt();
+
+                        Reader reader1 = dataUtility.SearchReaderByID(readers, searchReaderID);
+                        if (reader1 != null){
+                            System.out.println(reader1);
+                        } else {
+                            System.out.println("Không tìm thấy");
+                        }
+                    } else {
+                        scanner.nextLine();
+                        String searchReaderName;
+                        System.out.println("Nhập tên người đọc cần tìm kiếm: ");
+                        searchReaderName = scanner.nextLine();
+                        ArrayList<Reader> readers1 = dataUtility.SearchReaderByName(readers, searchReaderName);
+                        if (readers1.size() != 0){
+                            for (int i = 0; i < readers1.size(); i++) {
+                                System.out.println(readers1.get(i));
+                            }
+                        } else {
+                            System.out.println("Không tìm thấy");
+                        }
+                    }
+                    break;
+                case 16:
+                    brms = dataController.ReadBRMFromFile(brmFileName);
+                    int choiceSearchBRM;
+                    do {
+                        System.out.println("1. Tìm kiếm theo mã người đọc");
+                        System.out.println("2. Tìm kiếm theo tên người đọc");
+                        choiceSearchBRM = scanner.nextInt();
+
+                    }while (choiceSearchBRM <= 0 || choiceSearchBRM >= 3);
+
+                    ArrayList<BookReaderManagement> brms1;
+                    if (choiceSearchBRM == 1){
+                        dataUtility.SortBRMByReaderID(brms);
+
+                        System.out.println("Nhập mã người đọc cần tìm kiếm: ");
+                        int searchBRMID = scanner.nextInt();
+
+                        brms1 = dataUtility.SearchBRMByReaderID(brms, searchBRMID);
+                        if (brms1.size() != 0){
+                            for (int i = 0; i < brms1.size(); i++) {
+                                System.out.println(brms1.get(i));
+                            }
+                        } else {
+                            System.out.println("Không tìm thấy");
+                        }
+                    } else {
+                        scanner.nextLine();
+                        String searchBRMName;
+                        System.out.println("Nhập tên người đọc cần tìm kiếm: ");
+                        searchBRMName = scanner.nextLine();
+                        brms1 = dataUtility.SearchBRMByReaderName(brms, searchBRMName);
+                        if (brms1.size() != 0){
+                            for (int i = 0; i < brms1.size(); i++) {
+                                System.out.println(brms1.get(i));
+                            }
+                        } else {
+                            System.out.println("Không tìm thấy");
+                        }
+                    }
                     break;
             }
 
