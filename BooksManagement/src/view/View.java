@@ -386,6 +386,7 @@ public class View {
                     do {
                         System.out.println("1. Sắp xếp theo mã sách");
                         System.out.println("2. Sắp xếp theo tên sách");
+                        System.out.println("Your choice: ");
                         choiceSortBook = scanner.nextInt();
 
                     }while (choiceSortBook <= 0 || choiceSortBook >= 3);
@@ -403,6 +404,7 @@ public class View {
                     do {
                         System.out.println("1. Sắp xếp theo mã người đọc");
                         System.out.println("2. Sắp xếp theo tên người đọc");
+                        System.out.println("Your choice: ");
                         choiceSortReader = scanner.nextInt();
 
                     }while (choiceSortReader <= 0 || choiceSortReader >= 3);
@@ -420,6 +422,7 @@ public class View {
                     do {
                         System.out.println("1. Sắp xếp theo tên người đọc");
                         System.out.println("2. Sắp xếp theo số lượng sách mượn (giảm dần)");
+                        System.out.println("Your choice: ");
                         choiceSortBRM = scanner.nextInt();
 
                     }while (choiceSortBRM <= 0 || choiceSortBRM >= 3);
@@ -437,6 +440,7 @@ public class View {
                     do {
                         System.out.println("1. Tìm kiếm theo mã sách");
                         System.out.println("2. Tìm kiếm theo tên sách");
+                        System.out.println("Your choice: ");
                         choiceSearchBook = scanner.nextInt();
 
                     }while (choiceSearchBook <= 0 || choiceSearchBook >= 3);
@@ -474,6 +478,7 @@ public class View {
                     do {
                         System.out.println("1. Tìm kiếm theo mã người đọc");
                         System.out.println("2. Tìm kiếm theo tên người đọc");
+                        System.out.println("Your choice: ");
                         choiceSearchReader = scanner.nextInt();
 
                     }while (choiceSearchReader <= 0 || choiceSearchReader >= 3);
@@ -511,6 +516,7 @@ public class View {
                     do {
                         System.out.println("1. Tìm kiếm theo mã người đọc");
                         System.out.println("2. Tìm kiếm theo tên người đọc");
+                        System.out.println("Your choice: ");
                         choiceSearchBRM = scanner.nextInt();
 
                     }while (choiceSearchBRM <= 0 || choiceSearchBRM >= 3);
